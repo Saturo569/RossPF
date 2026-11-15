@@ -1,287 +1,694 @@
-:root{
-    --bg: #0B0D0C;
-    --panel: #161A18;
-    --green: #2E5A3C;
-    --green-light: #4C8A5E;
-    --glow: #7CFF9A;
-    --dark-green: #10251B;
-    --steel: #8A949B;
-    --line: rgba(138, 148, 155, 0.25);
-    --text: #D9DEDC;
-    --gold: #B89B4A;
-    --bar-h: 64px;
-    --side-w: 220px; 
-}
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@font-face {
+    font-family: "Cinzel Decorative";
+    src: url("./assets/fonts/CinzelDecorative-Regular.otf") format("opentype");
 }
 
 @font-face {
-  font-family: "Cinzel Decorative";
-  src: url("./assets/fonts/CinzelDecorative-Regular.otf") format("opentype");
+    font-family: "Cinzel Decorative Bold";
+    src: url("./assets/fonts/CinzelDecorative-Bold.otf") format("opentype");
 }
 
-@font-face {
-  font-family: "Cinzel Decorative Bold";
-  src: url("./assets/fonts/CinzelDecorative-Bold.otf") format("opentype");
+:root {
+  --bg: #0b0d0c;
+  --bg-alt: #101412;
+  --surface: #1f3d2b;
+  --sidebar-bg: #11251c;
+  --text: #d9dde1;
+  --text-soft: #b8bec4;
+  --muted: #6b7178; 
+  --border: #4a4f55;
+  --gold: #c9a227;
+  --gold-hover: #e0bc47;
+  --brass: #a8872e;
+  --glow: #6bff8a;
+
+ 
+
+  /* Layout */
+  --header-h: 70px;
+  --sidebar-w: 220px;
 }
 
-html{
-    scroll-padding-top: var(--bar-h);   
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
 }
 
-body{
-    padding-top: var(--bar-h);
-    background-color: var(--bg);          
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Cinzel Decorative", serif;
 }
 
-.sidebar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    height: var(--bar-h);               
-    overflow: hidden;
-    background-color: var(--dark-green);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
-    transition: height 0.35s ease;
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  padding-top: var(--header-h); /* room for the fixed top bar */
 }
 
-.sidebar.open{
-    height: 100vh;
-    height: 100dvh;                     
-    overflow-y: auto;
+h1, h2, h3,
+.logo,
+.justin,
+.sidebar nav a {
+  font-family: "Cinzel Decorative Bold", serif;
 }
 
-.header-part{
-    flex-shrink: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: var(--bar-h);
-    padding: 0 20px;
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
-.logo a{
-    font-family: 'Cinzel Decorative Bold', serif;
-    font-size: 20px;
-    font-weight: bold;
-    font-style: italic;
-    letter-spacing: 2px;
-    color: var(--text);
-    text-decoration: none;
-    transition: color 0.3s ease;
+.home, .about, .projects, .skills, .profile {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 85% 10%, rgba(46, 91, 60, 0.28), transparent 50%),
+    linear-gradient(rgba(201, 162, 39, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 162, 39, 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+
+  min-height: 100vh;
+  min-height: 100svh;
+  scroll-margin-top: var(--header-h);
+  scroll-snap-align: start;
 }
 
-.logo a:hover{
-    color: var(--glow);
-}
-
-.menu{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;                       
-    height: 44px;
-    background: none;
-    border: none;
-    font-size: 22px;
-    color: var(--text);
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.menu:hover{
-    color: var(--glow);
+.about, .projects, .skills {
+  background-color: var(--bg-alt);
 }
 
 
-.sidebar nav{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 24px 20px 40px;
-    opacity: 0;
-    visibility: hidden;                 
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-h);
+  padding: 10px 16px;
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sidebar-bg);
+  border-bottom: 1px solid var(--border);
+  transition: height 0.3s ease;
 }
 
-.sidebar.open nav{
-    opacity: 1;
-    visibility: visible;
+.sidebar.open {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
 }
 
-.sidebar nav a{
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 24px;
-    letter-spacing: 4px;
-    padding: 14px 0;
-    color: var(--text);
-    text-decoration: none;
-    transition: color 0.3s ease;
+.header-part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.sidebar nav a svg{
-    margin-right: 12px;
-    font-size: 0.8em;
-    color: var(--steel);
-    transition: color 0.3s ease;
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logo a {
+  text-decoration: none;
+  color: var(--text);
+  transition: 0.3s ease;
+}
+
+.logo a:hover {
+  color: var(--gold);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--text-soft);
+  transition: 0.3s ease;
+}
+
+.menu:hover {
+  color: var(--gold);
+}
+
+/* Nav is hidden until the menu is opened on mobile */
+.sidebar nav {
+  display: none;
+  flex-direction: column;
+  padding: 16px 4px;
+  color-scheme: dark;
+  scrollbar-color: var(--border) transparent;
+}
+
+.sidebar.open nav {
+  display: flex;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 10px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--text-soft);
+  border-left: 3px solid transparent;
+  transition: 0.3s ease;
+}
+
+.sidebar nav a i,
+.sidebar nav a svg {
+  color: var(--muted);
+  transition: 0.3s ease;
+}
+
+.sidebar nav a.nav-gap {
+  margin-top: 24px;
 }
 
 .sidebar nav a:hover,
-.sidebar nav a:hover svg{
-    color: var(--glow);
+.sidebar nav a.active {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background: rgba(201, 162, 39, 0.06);
 }
 
-.menu:focus-visible,
-.logo a:focus-visible,
-.sidebar nav a:focus-visible{
-    outline: 2px solid var(--glow);
-    outline-offset: 4px;
+.sidebar nav a:hover i,
+.sidebar nav a.active i {
+  color: var(--gold);
+}
+
+/* ---------- Music player ---------- */
+.music {
+  display: none;
+  margin-top: 16px;
+  padding: 0 10px;
+}
+
+.sidebar.open .music {
+  display: block;
+}
+
+.music h1 {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+
+.music h2 {
+  color: var(--text-soft);
+}
+
+.song-lists {
+  max-height: 300px;
+  overflow-y: auto;
+  color-scheme: dark;
+  scrollbar-color: var(--border) transparent;
+}
+
+.song-lists > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.song-lists span {
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--text-soft);
+  transition: 0.3s ease;
+}
+
+.song-lists > div:hover span {
+  color: var(--gold);
+}
+
+.song-lists audio {
+  width: 100%;
+  height: 40px;
+}
+
+/* ---------- Home ---------- */
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.justin {
+  font-size: clamp(40px, 11vw, 64px);
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 0 0 24px rgba(201, 162, 39, 0.25);
+  transition: 0.3s ease;
+}
+
+.justin:hover {
+  color: var(--gold-hover);
+}
+
+.descrip {
+  font-size: clamp(18px, 4.5vw, 24px);
+  color: var(--text-soft);
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  padding: 14px;
+  border: 1px solid rgba(184, 190, 196, 0.25);
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 40px rgba(46, 91, 60, 0.25);
+  transition: 0.3s ease;
+}
+
+.home .frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.frame::before,
+.frame::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--gold);
+  transition: 0.3s ease;
+}
+
+.frame::before {
+  top: -8px;
+  left: -8px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.frame::after {
+  bottom: -8px;
+  right: -8px;
+  border-left: none;
+  border-top: none;
+}
+
+.frame:hover {
+  box-shadow: 0 0 50px rgba(201, 162, 39, 0.18);
+}
+
+.frame:hover::before,
+.frame:hover::after {
+  width: 44px;
+  height: 44px;
+}
+
+/* ---------- Profile ---------- */
+.profile {
+  padding: 20px;
+}
+
+/* ---------- About ---------- */
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+.about-me {
+  width: 100%;
+}
+
+.about-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.picture {
+  width: 60%;
+  max-width: 240px;
+  height: auto;
+}
+
+.about-text {
+  padding: 18px;
+  background-color: rgba(11, 13, 12, 0.8);
+  border: 1px solid rgba(184, 190, 196, 0.18);
+  border-top: 3px solid var(--gold);
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+
+.about-text h1 {
+  font-size: clamp(28px, 8vw, 40px);
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.about-text p {
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.9;
+}
+
+.about-text .fa-desktop:hover {
+  color: var(--gold-hover);
+  transition: 0.3s ease;
+}
+
+.short-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.info strong {
+  font-size: clamp(18px, 5vw, 24px);
+  color: var(--gold);
+}
+
+.info span {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--text-soft);
+}
+
+.projects {
+  padding: 30px 20px;
+}
+
+.skills {
+  padding: 30px 20px;
+}
+
+.skills h1 {
+  font-size: clamp(28px, 8vw, 40px);
+  color: var(--gold);
+  margin-bottom: 24px;
+  transition: 0.3s ease;
+}
+
+.skills h1:hover {
+  color: var(--gold-hover);
+}
+
+.skills-ni-ross {
+  max-width: 900px;
+}
+
+.skill-group {
+  margin-bottom: 28px;
+}
+
+.skill-group h3 {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-chip {
+  padding: 8px 16px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--text);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  background-color: rgba(31, 61, 43, 0.45);
+  transition: 0.3s ease;
+}
+
+.skill-chip:hover {
+  color: var(--bg);
+  background-color: var(--gold);
+  border-color: var(--gold);
 }
 
 
+@media (min-width: 768px) {
+  html {
+    scroll-snap-type: none;
+  }
 
-@media (max-width: 767px) and (max-height: 500px){
-    .sidebar nav{
-        justify-content: flex-start;
-        gap: 0;
-        padding-top: 8px;
-    }
+  body {
+    padding-top: 0;
+  }
 
-    .sidebar nav a{
-        font-size: 20px;
-        padding: 10px 0;
-    }
+  .sidebar {
+    width: var(--sidebar-w);
+    height: 100vh;
+    padding: 20px;
+    overflow: hidden;
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+  }
+
+  .sidebar.open {
+    overflow: hidden;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .header-part {
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--gold);
+  }
+
+  .logo {
+    font-size: 28px;
+  }
+
+  .sidebar nav {
+    display: flex;
+    flex: 0 0 auto;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .music {
+    display: block;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .song-lists {
+    max-height: 100%;
+  }
+
+  .home, .about, .projects, .skills, .profile {
+    margin-left: var(--sidebar-w);
+    scroll-margin-top: 0;
+    scroll-snap-align: none;
+  }
+
+  /* Home */
+  .home {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    gap: 2rem;
+    padding: 10px 40px;
+  }
+
+  .justin {
+    font-size: clamp(48px, 7vw, 90px);
+  }
+
+  .descrip {
+    font-size: clamp(18px, 2.2vw, 30px);
+  }
+
+  .frame {
+    width: 40%;
+    max-width: 420px;
+  }
+
+  /* About */
+  .about {
+    padding: 30px;
+  }
+
+  .about-top {
+    flex-direction: row;
+    gap: 48px;
+  }
+
+  .picture {
+    width: 40%;
+    max-width: 320px;
+  }
+
+  .about-text {
+    padding: 20px 24px;
+    border-top: 1px solid rgba(184, 190, 196, 0.18);
+    border-left: 3px solid var(--gold);
+  }
+
+  .about-text h1 {
+    font-size: clamp(32px, 4vw, 56px);
+  }
+
+  .about-text p {
+    font-size: clamp(16px, 1.5vw, 20px);
+    line-height: 2;
+  }
+
+  .short-info {
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 32px;
+  }
+
+  .info {
+    padding: 17px 16px;
+    border-bottom: none;
+    border-left: 1px solid var(--border);
+  }
+
+  .info strong {
+    font-size: clamp(18px, 2vw, 26px);
+  }
+
+  
+  .projects {
+    padding: 40px;
+  }
+
+  .skills {
+    padding: 40px;
+  }
+
+  .skills h1 {
+    font-size: clamp(32px, 4vw, 56px);
+  }
+
+  .skill-chip {
+    padding: 8px 18px;
+    font-size: clamp(14px, 1.4vw, 18px);
+  }
 }
 
 
-@media (min-width: 768px){
+@media (min-width: 1400px) {
+  :root {
+    --sidebar-w: 260px;
+  }
 
-    html{
-        scroll-padding-top: 0;         
-    }
+  .sidebar {
+    padding: 28px;
+  }
 
-    body{
-        padding-top: 0;
-        padding-left: var(--side-w);    
-    }
+  .logo {
+    font-size: 34px;
+  }
 
-    .sidebar,
-    .sidebar.open{
-        top: 0;
-        bottom: 0;
-        right: auto;
-        width: var(--side-w);
-        height: 100vh;
-        height: 100dvh;
-        padding: 24px 20px;
-        overflow: hidden;
-        border-bottom: none;
-        border-right: 1px solid var(--line);
-        background-color: var(--dark-green);
-        backdrop-filter: none;
-        transition: none;              
-    }
+  .sidebar nav a {
+    font-size: 21px;
+    padding: 14px 10px;
+  }
 
-    .header-part{
-        height: auto;
-        padding: 0 0 20px;
-        border-bottom: 1px solid var(--line);
-    }
+  .home {
+    padding-left: 6vw;
+    padding-right: 6vw;
+  }
 
-    .menu{
-        display: none;                
-    }
+  .frame {
+    max-width: 480px;
+  }
 
-    
-    .sidebar nav,
-    .sidebar.open nav{
-        flex: 1;
-        min-height: 0;                 
-        align-items: stretch;
-        justify-content: flex-start;
-        gap: 4px;
-        padding: 20px 0 0;
-        opacity: 1;
-        visibility: visible;
-        overflow-y: auto;
-        color-scheme: dark;
-    }
+  .justin {
+    font-size: clamp(90px, 7vw, 110px);
+  }
 
-    .sidebar nav a{
-        font-family: 'Cinzel Decorative', serif;
-        font-size: 15px;
-        font-weight: bold;
-        font-style: italic;
-        letter-spacing: 2px;
-        padding: 12px 8px;
-        color: var(--steel);
-    }
-
-    .sidebar nav a svg{
-        width: 1.1em;                 
-        margin-right: 12px;
-    }
+  .descrip {
+    font-size: 36px;
+  }
 }
 
+@media (min-width: 2000px) {
+  :root {
+    --sidebar-w: 340px;
+  }
 
-@media (min-width: 1400px){
-    :root{
-        --side-w: 260px;
-    }
+  .sidebar {
+    padding: 36px;
+  }
 
-    .sidebar,
-    .sidebar.open{
-        padding: 28px 24px;
-    }
+  .logo {
+    font-size: 44px;
+  }
 
-    .logo a{
-        font-size: 24px;
-    }
+  .sidebar nav a {
+    font-size: 28px;
+    padding: 18px 10px;
+  }
 
-    .sidebar nav a{
-        font-size: 17px;
-        padding: 14px 8px;
-    }
+  .home {
+    padding-left: 12vw;
+    padding-right: 12vw;
+  }
+
+  .frame {
+    max-width: 640px;
+  }
+
+  .justin {
+    font-size: 150px;
+  }
+
+  .descrip {
+    font-size: 48px;
+  }
 }
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-
-@media (min-width: 2000px){
-    :root{
-        --side-w: 340px;
-    }
-
-    .sidebar,
-    .sidebar.open{
-        padding: 36px 32px;
-    }
-
-    .logo a{
-        font-size: 32px;
-    }
-
-    .sidebar nav a{
-        font-size: 22px;
-        padding: 18px 10px;
-        letter-spacing: 3px;
-    }
-}
-
-
-@media (prefers-reduced-motion: reduce){
-    .sidebar,
-    .sidebar nav{
-        transition: none;
-    }
+  * {
+    transition: none !important;
+  }
 }
