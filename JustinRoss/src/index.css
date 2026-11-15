@@ -1,0 +1,287 @@
+:root{
+    --bg: #0B0D0C;
+    --panel: #161A18;
+    --green: #2E5A3C;
+    --green-light: #4C8A5E;
+    --glow: #7CFF9A;
+    --dark-green: #10251B;
+    --steel: #8A949B;
+    --line: rgba(138, 148, 155, 0.25);
+    --text: #D9DEDC;
+    --gold: #B89B4A;
+    --bar-h: 64px;
+    --side-w: 220px; 
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Cinzel Decorative";
+  src: url("./assets/fonts/CinzelDecorative-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Cinzel Decorative Bold";
+  src: url("./assets/fonts/CinzelDecorative-Bold.otf") format("opentype");
+}
+
+html{
+    scroll-padding-top: var(--bar-h);   
+}
+
+body{
+    padding-top: var(--bar-h);
+    background-color: var(--bg);          
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    height: var(--bar-h);               
+    overflow: hidden;
+    background-color: var(--dark-green);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    transition: height 0.35s ease;
+}
+
+.sidebar.open{
+    height: 100vh;
+    height: 100dvh;                     
+    overflow-y: auto;
+}
+
+.header-part{
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--bar-h);
+    padding: 0 20px;
+}
+
+.logo a{
+    font-family: 'Cinzel Decorative Bold', serif;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logo a:hover{
+    color: var(--glow);
+}
+
+.menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;                       
+    height: 44px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--text);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.menu:hover{
+    color: var(--glow);
+}
+
+
+.sidebar nav{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 20px 40px;
+    opacity: 0;
+    visibility: hidden;                 
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar.open nav{
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar nav a{
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 24px;
+    letter-spacing: 4px;
+    padding: 14px 0;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.sidebar nav a svg{
+    margin-right: 12px;
+    font-size: 0.8em;
+    color: var(--steel);
+    transition: color 0.3s ease;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a:hover svg{
+    color: var(--glow);
+}
+
+.menu:focus-visible,
+.logo a:focus-visible,
+.sidebar nav a:focus-visible{
+    outline: 2px solid var(--glow);
+    outline-offset: 4px;
+}
+
+
+
+@media (max-width: 767px) and (max-height: 500px){
+    .sidebar nav{
+        justify-content: flex-start;
+        gap: 0;
+        padding-top: 8px;
+    }
+
+    .sidebar nav a{
+        font-size: 20px;
+        padding: 10px 0;
+    }
+}
+
+
+@media (min-width: 768px){
+
+    html{
+        scroll-padding-top: 0;         
+    }
+
+    body{
+        padding-top: 0;
+        padding-left: var(--side-w);    
+    }
+
+    .sidebar,
+    .sidebar.open{
+        top: 0;
+        bottom: 0;
+        right: auto;
+        width: var(--side-w);
+        height: 100vh;
+        height: 100dvh;
+        padding: 24px 20px;
+        overflow: hidden;
+        border-bottom: none;
+        border-right: 1px solid var(--line);
+        background-color: var(--dark-green);
+        backdrop-filter: none;
+        transition: none;              
+    }
+
+    .header-part{
+        height: auto;
+        padding: 0 0 20px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .menu{
+        display: none;                
+    }
+
+    
+    .sidebar nav,
+    .sidebar.open nav{
+        flex: 1;
+        min-height: 0;                 
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 4px;
+        padding: 20px 0 0;
+        opacity: 1;
+        visibility: visible;
+        overflow-y: auto;
+        color-scheme: dark;
+    }
+
+    .sidebar nav a{
+        font-family: 'Cinzel Decorative', serif;
+        font-size: 15px;
+        font-weight: bold;
+        font-style: italic;
+        letter-spacing: 2px;
+        padding: 12px 8px;
+        color: var(--steel);
+    }
+
+    .sidebar nav a svg{
+        width: 1.1em;                 
+        margin-right: 12px;
+    }
+}
+
+
+@media (min-width: 1400px){
+    :root{
+        --side-w: 260px;
+    }
+
+    .sidebar,
+    .sidebar.open{
+        padding: 28px 24px;
+    }
+
+    .logo a{
+        font-size: 24px;
+    }
+
+    .sidebar nav a{
+        font-size: 17px;
+        padding: 14px 8px;
+    }
+}
+
+
+@media (min-width: 2000px){
+    :root{
+        --side-w: 340px;
+    }
+
+    .sidebar,
+    .sidebar.open{
+        padding: 36px 32px;
+    }
+
+    .logo a{
+        font-size: 32px;
+    }
+
+    .sidebar nav a{
+        font-size: 22px;
+        padding: 18px 10px;
+        letter-spacing: 3px;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce){
+    .sidebar,
+    .sidebar nav{
+        transition: none;
+    }
+}
