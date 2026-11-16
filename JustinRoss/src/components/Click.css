@@ -1,0 +1,46 @@
+.click {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;   /* clicks pass through */
+  z-index: 9999;          /* above the sidebar */
+}
+
+.circle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid;
+  animation: ripple 1s ease-out both;
+}
+
+/* First wave: gold, like the armor trim */
+.circle-gold {
+  border-color: var(--gold, #c9a227);
+  box-shadow: 0 0 12px rgba(201, 162, 39, 0.6);
+}
+
+/* Second wave: green, like Doom's eye glow (name kept so your JS still works) */
+.circle-blue {
+  border-color: var(--glow, #6bff8a);
+  box-shadow: 0 0 12px rgba(107, 255, 138, 0.55);
+  animation-delay: 0.15s;   /* starts a moment later, like a second wave */
+}
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(9);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .click { display: none; }
+}

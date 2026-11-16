@@ -47,7 +47,7 @@ export default function Sidebar(){
                     
                     (
                        <a key={anchor.href} href={`/${anchor.href}`} onClick={() => setOpen(false)}>
-                            <FontAwesomeIcon icon={anchor.icon} /> {anchor.label}
+                            <FontAwesomeIcon className='icons' icon={anchor.icon} /> {anchor.label}
                         </a>
                     ))}
                 </nav>
